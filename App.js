@@ -12,10 +12,10 @@ import {styles, myimage} from './assets/styles/styles1.jsx'
 export default function App() {
   // States
 
- 
+
   return (
     <ImageBackground
-      source={require('./assets/images/fondo.jpg')} // Reemplaza 'fondo.jpg' con la ruta de tu imagen
+      source={require('./assets/images/fondo.jpg')}
       style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
     >
 

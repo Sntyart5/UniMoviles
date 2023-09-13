@@ -31,7 +31,6 @@ export default function Formulario() {
         obsvColor,
       };
       setData([...data, nuevoDato]);
-      // Limpia los campos después de guardar
       setId('');
       setName('');
       setSubject('');
@@ -42,30 +41,27 @@ export default function Formulario() {
       setObsv('');
       setObsvColor('');
     } else {
-      // Mostrar un mensaje de error si falta algún dato
       setObsv('Datos guardados correctamente.');
     }
   };
 
   const calcularDefinitiva = () => {
-    // Convierte las notas a números
+
     const nota1Numero = parseFloat(nota1);
     const nota2Numero = parseFloat(nota2);
     const nota3Numero = parseFloat(nota3);
 
-    // Verifica que las notas sean números válidos
     if (isNaN(nota1Numero) || isNaN(nota2Numero) || isNaN(nota3Numero)) {
       setDef('Error: Ingresa notas válidas');
       return;
     }
 
-    // Verifica que las notas estén en el rango de 0 a 5
     if (nota1Numero < 0 || nota1Numero > 5 || nota2Numero < 0 || nota2Numero > 5 || nota3Numero < 0 || nota3Numero > 5) {
       setDef('Error: Las notas deben estar en el rango de 0 a 5');
       return;
     }
 
-    // Calcula la definitiva aplicando los pesos
+    // Calcular la definitiva
     const definitiva = nota1Numero * 0.3 + nota2Numero * 0.35 + nota3Numero * 0.35;
 
     setDef(definitiva.toFixed(2)); // Redondea la definitiva a 2 decimales
@@ -74,13 +70,13 @@ export default function Formulario() {
     let observacion = '';
     let observacionColor = '';
     if (definitiva >= 3) {
-      observacion = 'Gana';
+      observacion = 'Ganaste!!!';
       observacionColor = 'green';
     } else if (definitiva < 2) {
-      observacion = 'Pierde';
+      observacion = 'Pierde :(';
       observacionColor = 'red';
     } else if (definitiva >= 2 && definitiva < 2.95) {
-      observacion = 'Habilita';
+      observacion = 'Habilita ';
       observacionColor = 'orange';
     }
 
@@ -93,12 +89,10 @@ export default function Formulario() {
 
   const consultarDatos = () => {
     if (data.length === 0) {
-      // Actualiza el estado de obsv con el mensaje
       setObsv('No hay datos almacenados.');
     } else {
-      // Mostrar los datos en obsv
       let datosConsulta = 'Datos almacenados:\n';
-      data.forEach((dato, index) => {
+      data.forEach((dato) => {
         datosConsulta += `ID: ${dato.id},\n Nombre: ${dato.name},\n Asignatura: ${dato.subject},\n Definitiva: ${dato.def},\n Observacion: ${dato.obsv}`;
       });
       setObsv(datosConsulta);
@@ -106,9 +100,7 @@ export default function Formulario() {
   };
 
   const borrarDatos = () => {
-    setData([]); // Borra todos los datos
-
-    // Actualiza el estado de obsv con el mensaje
+    setData([]);
     setObsv('Datos borrados correctamente.');
   };
     
@@ -127,16 +119,16 @@ export default function Formulario() {
           onChangeText={id => setId(id)}
           value={id}
           style={{backgroundColor: 'lightgray'}}
-          left={<TextInput.Icon icon="calculator"/>}
+          left={<TextInput.Icon icon="account"/>}
           />
         <Text style={{fontSize:20, margin:10, color:'white'}}>Asignatura:</Text>
         
         <TextInput
-          label='Digite identificacion'
+          label='Digite Asignatura'
           onChangeText={subject => setSubject(subject)}
           value={subject}
           style={{backgroundColor: 'lightgray'}}
-          left={<TextInput.Icon icon="calculator"/>}
+          left={<TextInput.Icon icon="alien-outline"/>}
           />
 
         <Text style={{fontSize:20, margin:10, color:'white'}}>Nombre</Text>
@@ -145,13 +137,11 @@ export default function Formulario() {
           onChangeText={name => setName(name)}
           value={name}
           style={{backgroundColor: 'lightgray'}}
-          left={<TextInput.Icon icon="numeric"/>}
+          left={<TextInput.Icon icon="account-heart"/>}
           />
 
 
-        {
-            //Botones
-        }
+
         <View style={{ flexDirection: 'row', paddingTop: 40 , margin: 10}}>
         <Text style={{fontSize:20, marginTop:0, color: 'white'}}>Nota 1 </Text>
           <TextInput
@@ -192,10 +182,9 @@ export default function Formulario() {
         <text style={{paddingTop:10}}>Observaciones:</text>
         </View>
 
-        <View style={{backgroundColor: 'white', padding: 15, borderRadius: 50, marginTop:10, width:200, height:70, marginBottom:30 ,textAlign:'center'}}>
 
-        <text style={{ fontSize: 30, color: obsvColor}}>{obsv}</text>
-        </View>
+
+        <text style={{ backgroundColor: 'gray', padding: 15, borderRadius: 50, fontSize: 30, color: obsvColor, margin:50 }}>{obsv}</text>
 
 
         <Button style={{ backgroundColor: 'gray', width: 200, margin: 5 }} mode="contained" onPress={calcularDefinitiva}>
